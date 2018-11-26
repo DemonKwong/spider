@@ -1,4 +1,4 @@
-package com.spider.rentalinformation.model;
+package com.spider.core.model;
 
 import java.util.Date;
 
