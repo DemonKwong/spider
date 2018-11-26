@@ -2,7 +2,7 @@ package com.spider.rentalinformation.model;
 
 import java.util.Date;
 
-public class baseHouseInfo {
+public class BaseHouseInfo {
     private Integer id;
 
     private String title;

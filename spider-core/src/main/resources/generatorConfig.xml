@@ -43,10 +43,10 @@
         </javaClientGenerator>
 
         <!--对应数据库表 mysql可以加入主键自增 字段命名 忽略某字段等 -->
-        <table tableName="base_house_info" domainObjectName="baseHouseInfo"
+        <table tableName="base_house_info" domainObjectName="BaseHouseInfo"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"/>
-        <table tableName="house_content" domainObjectName="houseContent"
+        <table tableName="house_content" domainObjectName="HouseContent"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"/>
     </context>
