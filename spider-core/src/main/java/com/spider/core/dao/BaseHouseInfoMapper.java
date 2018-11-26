@@ -1,6 +1,6 @@
-package com.spider.rentalinformation.dao;
+package com.spider.core.dao;
 
-import com.spider.rentalinformation.model.BaseHouseInfo;
+import com.spider.core.model.BaseHouseInfo;
 
 public interface BaseHouseInfoMapper {
     int deleteByPrimaryKey(Integer id);

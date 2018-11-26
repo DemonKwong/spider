@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.spider.rentalinformation.dao.BaseHouseInfoMapper" >
-  <resultMap id="BaseResultMap" type="com.spider.rentalinformation.model.BaseHouseInfo" >
+<mapper namespace="com.spider.core.dao.BaseHouseInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.spider.core.model.BaseHouseInfo" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="url" property="url" jdbcType="VARCHAR" />
@@ -23,7 +23,7 @@
     delete from base_house_info
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.spider.rentalinformation.model.BaseHouseInfo" >
+  <insert id="insert" parameterType="com.spider.core.model.BaseHouseInfo" >
     insert into base_house_info (id, title, url, 
       price_list, pic_list, publish_time, 
       create_time)
@@ -31,7 +31,7 @@
       #{priceList,jdbcType=VARCHAR}, #{picList,jdbcType=VARCHAR}, #{publishTime,jdbcType=TIMESTAMP}, 
       #{createTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.spider.rentalinformation.model.BaseHouseInfo" >
+  <insert id="insertSelective" parameterType="com.spider.core.model.BaseHouseInfo" >
     insert into base_house_info
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -80,7 +80,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.spider.rentalinformation.model.BaseHouseInfo" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.spider.core.model.BaseHouseInfo" >
     update base_house_info
     <set >
       <if test="title != null" >
@@ -104,7 +104,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.spider.rentalinformation.model.BaseHouseInfo" >
+  <update id="updateByPrimaryKey" parameterType="com.spider.core.model.BaseHouseInfo" >
     update base_house_info
     set title = #{title,jdbcType=VARCHAR},
       url = #{url,jdbcType=VARCHAR},
