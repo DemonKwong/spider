@@ -55,6 +55,7 @@ public class DouBanProcessor implements PageProcessor {
 
       @Override
       public Site getSite() {
-       return site;
+            return site;
       }
+
 }
