@@ -1,5 +1,6 @@
 package com.spider.core.processor;
 
+import org.springframework.stereotype.Component;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Request;
 import us.codecraft.webmagic.Site;
@@ -13,6 +14,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@Component("douBanProcessor")
 public class DouBanProcessor implements PageProcessor {
 
       private Site site = Site.me().setRetryTimes(3).setSleepTime(3000);
@@ -54,7 +56,7 @@ public class DouBanProcessor implements PageProcessor {
                         request.addHeader("User-Agent","Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.62 Safari/537.36");
                         page.addTargetRequest(request);
                   }
-                  //忽略此页面不作持久化
+                  //忽略此页面的数据不作持久化
                   page.setSkip(true);
             }else if(Pattern.matches(pageDetailStr,page.getUrl().toString())){
                   Html html = page.getHtml();
