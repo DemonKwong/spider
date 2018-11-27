@@ -1,3 +1,0 @@
-mapper:
-  mappers: com.spider.general.BaseMapper
-  identity: MYSQL

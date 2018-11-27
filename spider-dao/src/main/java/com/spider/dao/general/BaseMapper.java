@@ -1,6 +1,5 @@
-package com.spider.general;
+package com.spider.dao.general;
 
-import org.springframework.stereotype.Component;
 import tk.mybatis.mapper.common.Mapper;
 import tk.mybatis.mapper.common.MySqlMapper;
 
@@ -11,6 +10,6 @@ import tk.mybatis.mapper.common.MySqlMapper;
  * @Description: TODO
  * @date 2018/11/2716:08
  */
-@Component
+
 public interface BaseMapper<T> extends Mapper<T>,MySqlMapper<T> {
 }

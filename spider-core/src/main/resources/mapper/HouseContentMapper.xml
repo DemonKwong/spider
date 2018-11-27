@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.spider.core.dao.HouseContentMapper" >
-  <resultMap id="BaseResultMap" type="com.spider.core.model.HouseContent" >
+<mapper namespace="com.spider.dao.core.dao.HouseContentMapper" >
+  <resultMap id="BaseResultMap" type="com.spider.dao.core.model.HouseContent" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="url" property="url" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
   </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.spider.core.model.HouseContent" extends="BaseResultMap" >
+  <resultMap id="ResultMapWithBLOBs" type="com.spider.dao.core.model.HouseContent" extends="BaseResultMap" >
     <result column="content" property="content" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
@@ -27,13 +27,13 @@
     delete from house_content
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.spider.core.model.HouseContent" >
+  <insert id="insert" parameterType="com.spider.dao.core.model.HouseContent" >
     insert into house_content (id, url, create_time, 
       content)
     values (#{id,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{content,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.spider.core.model.HouseContent" >
+  <insert id="insertSelective" parameterType="com.spider.dao.core.model.HouseContent" >
     insert into house_content
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -64,7 +64,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.spider.core.model.HouseContent" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.spider.dao.core.model.HouseContent" >
     update house_content
     <set >
       <if test="url != null" >
@@ -79,14 +79,14 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.spider.core.model.HouseContent" >
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.spider.dao.core.model.HouseContent" >
     update house_content
     set url = #{url,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       content = #{content,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.spider.core.model.HouseContent" >
+  <update id="updateByPrimaryKey" parameterType="com.spider.dao.core.model.HouseContent" >
     update house_content
     set url = #{url,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP}

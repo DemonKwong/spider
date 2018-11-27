@@ -1,4 +1,4 @@
-package com.spider.core.processor;
+package com.spider.dao.core.processor;
 
 import org.springframework.stereotype.Component;
 import us.codecraft.webmagic.Page;

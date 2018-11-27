@@ -1,6 +1,6 @@
-package com.spider.core.dao;
+package com.spider.dao.core.dao;
 
-import com.spider.core.model.HouseContent;
+import com.spider.dao.core.model.HouseContent;
 
 public interface HouseContentMapper {
     int deleteByPrimaryKey(Integer id);
