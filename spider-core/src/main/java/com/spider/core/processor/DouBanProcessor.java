@@ -7,7 +7,9 @@ import us.codecraft.webmagic.processor.PageProcessor;
 import us.codecraft.webmagic.selector.Html;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -15,9 +17,33 @@ public class DouBanProcessor implements PageProcessor {
 
       private Site site = Site.me().setRetryTimes(3).setSleepTime(3000);
 
+      /**
+       * 价格匹配的正则表达式
+       * 将所有价格捞出来
+       */
+      private Pattern priceGroupPattern = Pattern.compile("[5-9][0-9]{2}元|[1-9][0-9]{3}元|(月租)|(租金)|(价格).{5,11}");
+
+      /**
+       * 将匹配出来的价格再匹配一次
+       * */
+      private Pattern pricePattern = Pattern.compile("[4-9][0-9]{2}|[1-9][0-9]{3}");
+
+      /**
+       * 页面列的正则表达式
+       * */
+      private String pageListStr = "https://www.douban.com/group/tianhezufang/discussion\\?start=\\d+";
+
+      /**
+       * 页面详情页的正则表达式
+       * */
+      private String pageDetailStr = "https://www.douban.com/group/topic/\\d+/";
+
+      private static Map pageNumberMap = new HashMap();
       @Override
       public void process(Page page) {
-            if(Pattern.matches("https://www.douban.com/group/tianhezufang/discussion\\?start=\\d+",page.getUrl().toString())){
+            if(Pattern.matches(pageListStr,page.getUrl().toString())){
+                  String pageNumber = page.getUrl().xpath("//a/text()").toString();
+                  pageNumberMap.put("page",Integer.valueOf(pageNumber));
                   Html html = page.getHtml();
                   List<String> houseInfoLinks = html.xpath("//*[@id=\"content\"]/div/div[1]/div[2]/table/tbody/tr/td[1]/a/@href").regex("^https://www.douban.com/group/topic/.*").all();
                   List<String> pageLinks = html.xpath("//*[@id=\"content\"]/div/div[1]/div[3]/a/@href").all();
@@ -30,16 +56,14 @@ public class DouBanProcessor implements PageProcessor {
                   }
                   //忽略此页面不作持久化
                   page.setSkip(true);
-            }else if(Pattern.matches("https://www.douban.com/group/topic/\\d+/",page.getUrl().toString())){
+            }else if(Pattern.matches(pageDetailStr,page.getUrl().toString())){
                   Html html = page.getHtml();
-                  Pattern p = Pattern.compile("[5-9][0-9]{2}元|[1-9][0-9]{3}元|(月租)|(租金)|(价格).{5,11}");
-                  Pattern p1 = Pattern.compile("[4-9][0-9]{2}|[1-9][0-9]{3}");
                   String content = html.xpath("//*[@id=\"link-report\"]/div/div/p").all().toString();
                   List<String> priceList = new ArrayList<>();
-                  Matcher matcher = p.matcher(content);
+                  Matcher matcher = priceGroupPattern.matcher(content);
                   while (matcher.find()){
                         String price = matcher.group();
-                        Matcher matcher1 = p1.matcher(price);
+                        Matcher matcher1 = pricePattern.matcher(price);
                         while(matcher1.find()){
                               priceList.add(matcher1.group());
                         }
@@ -58,4 +82,7 @@ public class DouBanProcessor implements PageProcessor {
             return site;
       }
 
+      public static Integer getPageNumber() {
+            return (Integer) pageNumberMap.get("page");
+      }
 }
