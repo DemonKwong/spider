@@ -8,7 +8,7 @@ import tk.mybatis.mapper.common.MySqlMapper;
  * @Title: BaseMapper
  * @ProjectName spider
  * @Description: TODO
- * @date 2018/11/2716:08
+ * @date 2018/11/27 16:08
  */
 
 public interface BaseMapper<T> extends Mapper<T>,MySqlMapper<T> {

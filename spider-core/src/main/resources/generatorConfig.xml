@@ -25,7 +25,7 @@
         </javaTypeResolver>
 
         <!--生成实体类 指定包名 以及生成的地址 （可以自定义地址，但是路径不存在不会自动创建 使用Maven生成在target目录下，会自动创建） -->
-        <javaModelGenerator targetPackage="com.spider.dao.model"
+        <javaModelGenerator targetPackage="com.spider.core.model"
                             targetProject="src\main\java">
             <property name="enableSubPackages" value="true" />
             <property name="trimStrings" value="true" />
@@ -37,16 +37,19 @@
         </sqlMapGenerator>
         <!--生成Dao文件 可以配置 type="XMLMAPPER"生成xml的dao实现 context id="DB2Tables" 修改targetRuntime="MyBatis3" -->
         <javaClientGenerator type="XMLMAPPER"
-                             targetPackage="com.spider.dao.mapper"
+                             targetPackage="com.spider.core.mapper"
                              targetProject="src\main\java">
             <property name="enableSubPackages" value="false" />
         </javaClientGenerator>
 
         <!--对应数据库表 mysql可以加入主键自增 字段命名 忽略某字段等 -->
-        <table tableName="base_house_info" domainObjectName="BaseHouseInfo"
+        <table tableName="house_info" domainObjectName="HouseInfo"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"/>
-        <table tableName="house_content" domainObjectName="HouseContent"
+        <table tableName="house_picture" domainObjectName="HousePicture"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"/>
+        <table tableName="house_price" domainObjectName="HousePrice"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"/>
     </context>
