@@ -1,4 +1,4 @@
-package com.spider.dao.core.model;
+package com.spider.core.model;
 
 import java.util.Date;
 

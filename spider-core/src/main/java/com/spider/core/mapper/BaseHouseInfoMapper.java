@@ -1,7 +1,6 @@
-package com.spider.dao.mapper;
+package com.spider.core.mapper;
 
-import com.spider.dao.general.BaseMapper;
-import com.spider.dao.model.BaseHouseInfo;
+import com.spider.core.model.BaseHouseInfo;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

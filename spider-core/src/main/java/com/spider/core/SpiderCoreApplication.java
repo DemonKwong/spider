@@ -1,6 +1,6 @@
-package com.spider.dao.core;
+package com.spider.core;
 
-import com.spider.dao.core.processor.DouBanProcessor;
+import com.spider.core.processor.DouBanProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
