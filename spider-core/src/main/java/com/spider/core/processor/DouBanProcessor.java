@@ -44,9 +44,9 @@ public class DouBanProcessor implements PageProcessor {
       @Override
       public void process(Page page) {
             if(Pattern.matches(pageListStr,page.getUrl().toString())){
-                  String pageNumber = page.getUrl().xpath("//a/text()").toString();
-                  pageNumberMap.put("page",Integer.valueOf(pageNumber));
                   Html html = page.getHtml();
+                  String pageNumber = html.xpath("//*[@id=\"content\"]/div/div[1]/div[3]/span[2]/text()").toString();
+                  pageNumberMap.put("page",Integer.valueOf(pageNumber));
                   List<String> houseInfoLinks = html.xpath("//*[@id=\"content\"]/div/div[1]/div[2]/table/tbody/tr/td[1]/a/@href").regex("^https://www.douban.com/group/topic/.*").all();
                   List<String> pageLinks = html.xpath("//*[@id=\"content\"]/div/div[1]/div[3]/a/@href").all();
                   houseInfoLinks.addAll(pageLinks);
