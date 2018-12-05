@@ -1,12 +1,11 @@
 package com.spider.core;
 
-import com.spider.core.persist.DouBanPipeLine;
-import com.spider.core.processor.DouBanProcessor;
+import com.spider.core.scheduled.God;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import us.codecraft.webmagic.Request;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import us.codecraft.webmagic.Spider;
 
 /**
@@ -17,13 +16,13 @@ import us.codecraft.webmagic.Spider;
  * @date 2018/11/26 15:14
  */
 @SpringBootApplication
+@EnableScheduling
 public class SpiderCoreApplication implements CommandLineRunner {
 
     @Autowired
-    private DouBanProcessor douBanProcessor;
+    private God god;
 
-    @Autowired
-    private DouBanPipeLine douBanPipeLine;
+    public static Spider douBanSpider;
 
     public static void main(String[] args) {
         SpringApplication.run(SpiderCoreApplication.class, args);
@@ -31,15 +30,7 @@ public class SpiderCoreApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        Request request = new Request();
-        request.addHeader("User-Agent","Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.62 Safari/537.36");
-        request.setUrl("https://www.douban.com/group/tianhezufang/discussion?start=0");
-        Spider spider = Spider.create(douBanProcessor)
-                .addPipeline(douBanPipeLine)
-                //从"https://github.com/code4craft"开始抓
-                .addRequest(request)
-                //开启5个线程抓取
-                .thread(1);
-        spider.run();
+        god.createAndRun();
     }
+
 }

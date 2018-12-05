@@ -1,5 +1,6 @@
 package com.spider.core.processor;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Request;
@@ -46,6 +47,14 @@ public class DouBanProcessor implements PageProcessor {
             if(Pattern.matches(pageListStr,page.getUrl().toString())){
                   Html html = page.getHtml();
                   String pageNumber = html.xpath("//*[@id=\"content\"]/div/div[1]/div[3]/span[2]/text()").toString();
+                  if(StringUtils.equals("...",pageNumber)){
+                        pageNumber = html.xpath("//*[@id=\"content\"]/div/div[1]/div[3]/span[3]/text()").toString();
+                  }
+                  Integer preNumber = (Integer) pageNumberMap.get("page");
+                  //判断当前页面是否是上一次爬过的下一页
+                  if(preNumber != null && preNumber+1 != Integer.valueOf(pageNumber)){
+                        return;
+                  }
                   pageNumberMap.put("page",Integer.valueOf(pageNumber));
                   List<String> houseInfoLinks = html.xpath("//*[@id=\"content\"]/div/div[1]/div[2]/table/tbody/tr/td[1]/a/@href").regex("^https://www.douban.com/group/topic/.*").all();
                   List<String> pageLinks = html.xpath("//*[@id=\"content\"]/div/div[1]/div[3]/a/@href").all();
