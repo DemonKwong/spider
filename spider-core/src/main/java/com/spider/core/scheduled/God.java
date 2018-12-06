@@ -32,30 +32,28 @@ public class God {
     @Autowired
     private KuaiDaiLiProcessor kuaiDaiLiProcessor;
 
-    @Scheduled(cron = "0 0/5 * * * ? ")
+    @Scheduled(cron = "0/10 0/1 * * * ? ")
     public void createAndRun(){
         logger.info("定时器开始执行任务。。。。。。。");
-        Request kuaiDaiLiRequest = new Request();
-        kuaiDaiLiRequest.addHeader("User-Agent","Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.62 Safari/537.36");
-        kuaiDaiLiRequest.setUrl("https://www.kuaidaili.com/free/intr/");
-        Spider.create(kuaiDaiLiProcessor)
-                .addPipeline(kuaiDaiLiPipeLine)
-                //从"https://github.com/code4craft"开始抓
-                .addRequest(kuaiDaiLiRequest)
-                //开启5个线程抓取
-                .thread(1)
-                .run();
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         Integer pageNumber = DouBanProcessor.getPageNumber();
         if(pageNumber == null){
             pageNumber = 1;
         }
         //如果爬虫已经阵亡了就重新创建一只继续爬
         if(SpiderCoreApplication.douBanSpider == null || SpiderCoreApplication.douBanSpider.getStatus() == Spider.Status.Stopped){
+            Request kuaiDaiLiRequest = new Request();
+            kuaiDaiLiRequest.addHeader("User-Agent","Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.62 Safari/537.36");
+            kuaiDaiLiRequest.setUrl("https://www.kuaidaili.com/free/intr/");
+            Spider.create(kuaiDaiLiProcessor)
+                    .addPipeline(kuaiDaiLiPipeLine)
+                    //从"https://github.com/code4craft"开始抓
+                    .addRequest(kuaiDaiLiRequest)
+                    //开启5个线程抓取
+                    .thread(1)
+                    .run();
+            while(kuaiDaiLiPipeLine.isAlive()){
+                logger.info("快代理爬虫还在工作。。。");
+            }
             logger.info("发现原来的爬虫已经阵亡，正在创建一只新的爬虫");
             Request douBanRequest = new Request();
             douBanRequest.addHeader("User-Agent","Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.62 Safari/537.36");
