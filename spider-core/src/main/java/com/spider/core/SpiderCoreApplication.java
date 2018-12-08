@@ -26,6 +26,8 @@ public class SpiderCoreApplication implements CommandLineRunner {
 
     public static void main(String[] args) {
         SpringApplication.run(SpiderCoreApplication.class, args);
+//        Logger logger = Logger.getLogger(SpiderCoreApplication.class);
+//        logger.info("hahha");
     }
 
     @Override

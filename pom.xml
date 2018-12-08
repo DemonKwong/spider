@@ -110,9 +110,13 @@
 				<artifactId>mybatis-generator-maven-plugin</artifactId>
 				<version>1.3.2</version>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+			</plugin>
 		</plugins>
 		<filters>
-			<filter>src\main\resources\generatorConfig.xml</filter>
+			<filter>src\main\resources\application.yml</filter>
 		</filters>
 		<resources>
 			<resource>
@@ -123,18 +127,20 @@
 	</build>
 	<profiles>
 		<profile>
-			<id>home</id>
+			<id>test</id>
 			<properties>
-				<jarRealPath>E:\Maven\local-warehouse\mysql\mysql-connector-java\5.1.38\mysql-connector-java-5.1.38.jar</jarRealPath>
+				<mysqlDataBase>rental_information_test</mysqlDataBase>
+				<redisDataBase>0</redisDataBase>
 			</properties>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
 		</profile>
 		<profile>
-			<id>company</id>
+			<id>release</id>
 			<properties>
-				<jarRealPath>H:\apache-maven-repository\mysql\mysql-connector-java\5.1.34\mysql-connector-java-5.1.34.jar</jarRealPath>
+				<mysqlDataBase>rental_information</mysqlDataBase>
+				<redisDataBase>1</redisDataBase>
 			</properties>
 		</profile>
 	</profiles>

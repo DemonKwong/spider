@@ -4,4 +4,10 @@ spring:
     username: root
     password: kjw123456.
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://148.70.61.185:3306/rental_information_test?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://148.70.61.185:3306/@mysqlDataBase@?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=UTF-8
+  redis:
+    host: 148.70.61.185
+    port: 6379
+    password: kjw123456.
+    timeout: 500000
+    database: @redisDataBase@

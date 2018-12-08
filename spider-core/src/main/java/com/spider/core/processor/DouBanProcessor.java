@@ -1,6 +1,8 @@
 package com.spider.core.processor;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Request;
@@ -9,9 +11,7 @@ import us.codecraft.webmagic.processor.PageProcessor;
 import us.codecraft.webmagic.selector.Html;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -41,7 +41,9 @@ public class DouBanProcessor implements PageProcessor {
        * */
       private String pageDetailStr = "https://www.douban.com/group/topic/\\d+/";
 
-      private static Map pageNumberMap = new HashMap();
+      @Autowired
+      private  RedisTemplate redisTemplate;
+
       @Override
       public void process(Page page) {
             if(Pattern.matches(pageListStr,page.getUrl().toString())){
@@ -50,12 +52,12 @@ public class DouBanProcessor implements PageProcessor {
                   if(StringUtils.equals("...",pageNumber)){
                         pageNumber = html.xpath("//*[@id=\"content\"]/div/div[1]/div[3]/span[3]/text()").toString();
                   }
-                  Integer preNumber = (Integer) pageNumberMap.get("page");
+                  Integer preNumber = (Integer) redisTemplate.opsForValue().get("page");
                   //判断当前页面是否是上一次爬过的下一页
                   if(preNumber != null && preNumber+1 != Integer.valueOf(pageNumber)){
                         return;
                   }
-                  pageNumberMap.put("page",Integer.valueOf(pageNumber));
+                  redisTemplate.opsForValue().set("page",Integer.valueOf(pageNumber));
                   List<String> houseInfoLinks = html.xpath("//*[@id=\"content\"]/div/div[1]/div[2]/table/tbody/tr/td[1]/a/@href").regex("^https://www.douban.com/group/topic/.*").all();
                   List<String> pageLinks = html.xpath("//*[@id=\"content\"]/div/div[1]/div[3]/a/@href").all();
                   houseInfoLinks.addAll(pageLinks);
@@ -93,7 +95,7 @@ public class DouBanProcessor implements PageProcessor {
             return site;
       }
 
-      public static Integer getPageNumber() {
-            return (Integer) pageNumberMap.get("page");
+      public Integer getPageNumber() {
+            return (Integer) redisTemplate.opsForValue().get("page");
       }
 }

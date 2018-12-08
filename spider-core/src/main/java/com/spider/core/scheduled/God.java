@@ -35,7 +35,7 @@ public class God {
     @Scheduled(cron = "0/10 0/1 * * * ? ")
     public void createAndRun(){
         logger.info("定时器开始执行任务。。。。。。。");
-        Integer pageNumber = DouBanProcessor.getPageNumber();
+        Integer pageNumber = douBanProcessor.getPageNumber();
         if(pageNumber == null){
             pageNumber = 1;
         }
