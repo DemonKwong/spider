@@ -131,6 +131,7 @@
 			<properties>
 				<mysqlDataBase>rental_information_test</mysqlDataBase>
 				<redisDataBase>0</redisDataBase>
+				<dataBaseHost>148.70.61.185</dataBaseHost>
 			</properties>
 			<activation>
 				<activeByDefault>true</activeByDefault>
@@ -141,6 +142,7 @@
 			<properties>
 				<mysqlDataBase>rental_information</mysqlDataBase>
 				<redisDataBase>1</redisDataBase>
+				<dataBaseHost>127.0.0.1</dataBaseHost>
 			</properties>
 		</profile>
 	</profiles>
