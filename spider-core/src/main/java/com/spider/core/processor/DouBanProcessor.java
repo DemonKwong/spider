@@ -47,6 +47,8 @@ public class DouBanProcessor implements PageProcessor {
       @Override
       public void process(Page page) {
             if(Pattern.matches(pageListStr,page.getUrl().toString())){
+                  //忽略此页面的数据不作持久化
+                  page.setSkip(true);
                   Html html = page.getHtml();
                   String pageNumber = html.xpath("//*[@id=\"content\"]/div/div[1]/div[3]/span[2]/text()").toString();
                   if(StringUtils.equals("...",pageNumber)){
@@ -67,8 +69,6 @@ public class DouBanProcessor implements PageProcessor {
                         request.addHeader("User-Agent","Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.62 Safari/537.36");
                         page.addTargetRequest(request);
                   }
-                  //忽略此页面的数据不作持久化
-                  page.setSkip(true);
             }else if(Pattern.matches(pageDetailStr,page.getUrl().toString())){
                   Html html = page.getHtml();
                   String content = html.xpath("//*[@id=\"link-report\"]/div/div/p").all().toString();

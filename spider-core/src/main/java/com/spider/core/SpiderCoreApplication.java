@@ -1,5 +1,6 @@
 package com.spider.core;
 
+import com.spider.core.processor.GitIpProxyProcessor;
 import com.spider.core.scheduled.God;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -22,6 +23,9 @@ public class SpiderCoreApplication implements CommandLineRunner {
     @Autowired
     private God god;
 
+    @Autowired
+    private GitIpProxyProcessor gitIpProxyProcessor;
+
     public static Spider douBanSpider;
 
     public static void main(String[] args) {
@@ -32,7 +36,7 @@ public class SpiderCoreApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        god.createAndRun();
+        god.createIpProxySpiderAndRun();
     }
 
 }
