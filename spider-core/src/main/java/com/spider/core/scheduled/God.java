@@ -1,9 +1,7 @@
 package com.spider.core.scheduled;
 
-import com.alibaba.fastjson.JSONObject;
 import com.spider.core.SpiderCoreApplication;
 import com.spider.core.persist.DouBanPipeLine;
-import com.spider.core.persist.GitIpProxyPipeLine;
 import com.spider.core.processor.DouBanProcessor;
 import com.spider.core.processor.GitIpProxyProcessor;
 import org.apache.log4j.Logger;
@@ -31,8 +29,6 @@ public class God {
     @Autowired
     private GitIpProxyProcessor gitIpProxyProcessor;
 
-    @Autowired
-    private GitIpProxyPipeLine gitIpProxyPipeLine;
 
     @Autowired
     private RedisTemplate redisTemplate;
@@ -47,20 +43,15 @@ public class God {
         //如果爬虫已经阵亡了就重新创建一只继续爬
         if(SpiderCoreApplication.douBanSpider == null || SpiderCoreApplication.douBanSpider.getStatus() == Spider.Status.Stopped){
             logger.info("发现原来的爬虫已经阵亡，正在创建一只新的爬虫");
+            createIpProxySpiderAndRun();
+            while (gitIpProxyProcessor.getThread().isAlive()){
+                logger.info("爬取代理的爬虫还在运行。。。");
+            }
             Request douBanRequest = new Request();
             douBanRequest.addHeader("User-Agent","Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.62 Safari/537.36");
             douBanRequest.setUrl("https://www.douban.com/group/tianhezufang/discussion?start="+(pageNumber-1)*25);
             HttpClientDownloader httpClientDownloader = new HttpClientDownloader();
-            Proxy proxy = null;
-            while (proxy == null){
-                //弹出list里面第一个元素
-                String proxyStr = (String) redisTemplate.opsForList().rightPop("ipList");
-                logger.warn("ip池里面还剩下"+redisTemplate.opsForList().size("ipList")+"个代理地址");
-                JSONObject proxyJson = JSONObject.parseObject(proxyStr);
-                if(proxyJson.containsKey("host") && proxyJson.containsKey("port")) {
-                    proxy = new Proxy(proxyJson.getString("host"),proxyJson.getInteger("port"));
-                }
-            }
+            Proxy proxy = new Proxy(gitIpProxyProcessor.getHost(),gitIpProxyProcessor.getPort());
             httpClientDownloader.setProxyProvider(SimpleProxyProvider.from(proxy));
             SpiderCoreApplication.douBanSpider = Spider.create(douBanProcessor)
                     .addPipeline(douBanPipeLine)
@@ -76,13 +67,11 @@ public class God {
         logger.info("定时器任务执行结束！！！！！！！");
     }
 
-    @Scheduled(cron = "0 0 0/3 * * ? ")
-    public void createIpProxySpiderAndRun(){
+    private void createIpProxySpiderAndRun(){
         Request request = new Request();
         request.addHeader("User-Agent","Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.62 Safari/537.36");
         request.setUrl("https://raw.githubusercontent.com/fate0/proxylist/master/proxy.list");
         Spider.create(gitIpProxyProcessor)
-                .addPipeline(gitIpProxyPipeLine)
                 .addRequest(request)
                 .thread(1)
                 .run();

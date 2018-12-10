@@ -36,7 +36,7 @@ public class SpiderCoreApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        god.createIpProxySpiderAndRun();
+        god.createDouBanSpiderAndRun();
     }
 
 }
