@@ -36,6 +36,12 @@ public class DouBanPipeLine implements Pipeline {
     @Override
     @Transactional
     public void process(ResultItems resultItems, Task task) {
+        HouseInfo queryParam = new HouseInfo();
+        queryParam.setUrl(resultItems.get("url"));
+        HouseInfo existHouse = houseInfoMapper.selectOne(queryParam);
+        if(existHouse != null){
+            return ;
+        }
         HouseInfo houseInfo = new HouseInfo();
         houseInfo.setTitle(resultItems.get("title"));
         houseInfo.setUrl(resultItems.get("url"));
