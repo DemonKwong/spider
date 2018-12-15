@@ -48,6 +48,11 @@ public class God {
         logger.info("定时器任务执行结束！！！！！！！");
     }
 
+
+
+
+
+
     private void createIpProxySpiderAndRun(){
         Request request = new Request();
         request.addHeader("User-Agent","Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.62 Safari/537.36");
