@@ -72,7 +72,10 @@ public class DouBanProcessor implements PageProcessor {
                         }
                   }else if(Pattern.matches(pageDetailStr,page.getUrl().toString())){
                         Html html = page.getHtml();
-                        String content = html.xpath("//*[@id=\"link-report\"]/div/div/p").all().toString();
+                        String content = html.xpath("//*[@id=\"link-report\"]/div/p").all().toString();
+                        if(StringUtils.equals("[]",content)){
+                              content = html.xpath("//*[@id=\"link-report\"]/div/div/p").all().toString();
+                        }
                         List<String> priceList = new ArrayList<>();
                         Matcher matcher = priceGroupPattern.matcher(content);
                         while (matcher.find()){

@@ -36,46 +36,48 @@ public class DouBanPipeLine implements Pipeline {
     @Override
     @Transactional
     public void process(ResultItems resultItems, Task task) {
-        HouseInfo queryParam = new HouseInfo();
-        queryParam.setUrl(resultItems.get("url"));
-        HouseInfo existHouse = houseInfoMapper.selectOne(queryParam);
-        if(existHouse != null){
-            return ;
-        }
-        HouseInfo houseInfo = new HouseInfo();
-        houseInfo.setTitle(resultItems.get("title"));
-        houseInfo.setUrl(resultItems.get("url"));
-        houseInfo.setContent(resultItems.get("content"));
-        houseInfo.setCreateTime(new Date());
-        try {
-            houseInfo.setPublishtime(DateUtils.parseDate(resultItems.get("publishTime"),"yyyy-MM-dd HH:mm:ss"));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        List<String> priceList = resultItems.get("price");
-        List<HousePrice> housePriceList = new ArrayList<>();
-        for(String price:priceList){
-            HousePrice housePrice = new HousePrice();
-            housePrice.setCreateTime(new Date());
-            housePrice.setUrl(resultItems.get("url"));
-            housePrice.setPrice(new BigDecimal(price));
-            housePriceList.add(housePrice);
-        }
-        List<String> imgList = resultItems.get("imgs");
-        List<HousePicture> housePictureList = new ArrayList<>();
-        for(String picture:imgList){
-            HousePicture housePicture = new HousePicture();
-            housePicture.setCreateTime(new Date());
-            housePicture.setPictureUrl(picture);
-            housePicture.setUrl(resultItems.get("url"));
-            housePictureList.add(housePicture);
-        }
-        houseInfoMapper.insertUseGeneratedKeys(houseInfo);
-        if(CollectionUtils.isNotEmpty(housePriceList)) {
-            housePriceMapper.insertList(housePriceList);
-        }
-        if(CollectionUtils.isNotEmpty(housePictureList)) {
-            housePictureMapper.insertList(housePictureList);
+        synchronized (this) {
+            HouseInfo queryParam = new HouseInfo();
+            queryParam.setUrl(resultItems.get("url"));
+            HouseInfo existHouse = houseInfoMapper.selectOne(queryParam);
+            if(existHouse != null){
+                return ;
+            }
+            HouseInfo houseInfo = new HouseInfo();
+            houseInfo.setTitle(resultItems.get("title"));
+            houseInfo.setUrl(resultItems.get("url"));
+            houseInfo.setContent(resultItems.get("content"));
+            houseInfo.setCreateTime(new Date());
+            try {
+                houseInfo.setPublishtime(DateUtils.parseDate(resultItems.get("publishTime"),"yyyy-MM-dd HH:mm:ss"));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            List<String> priceList = resultItems.get("price");
+            List<HousePrice> housePriceList = new ArrayList<>();
+            for(String price:priceList){
+                HousePrice housePrice = new HousePrice();
+                housePrice.setCreateTime(new Date());
+                housePrice.setUrl(resultItems.get("url"));
+                housePrice.setPrice(new BigDecimal(price));
+                housePriceList.add(housePrice);
+            }
+            List<String> imgList = resultItems.get("imgs");
+            List<HousePicture> housePictureList = new ArrayList<>();
+            for(String picture:imgList){
+                HousePicture housePicture = new HousePicture();
+                housePicture.setCreateTime(new Date());
+                housePicture.setPictureUrl(picture);
+                housePicture.setUrl(resultItems.get("url"));
+                housePictureList.add(housePicture);
+            }
+            houseInfoMapper.insertUseGeneratedKeys(houseInfo);
+            if(CollectionUtils.isNotEmpty(housePriceList)) {
+                housePriceMapper.insertList(housePriceList);
+            }
+            if(CollectionUtils.isNotEmpty(housePictureList)) {
+                housePictureMapper.insertList(housePictureList);
+            }
         }
     }
 }

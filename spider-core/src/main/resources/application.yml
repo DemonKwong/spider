@@ -11,3 +11,7 @@ spring:
     password: kjw123456.
     timeout: 500000
     database: @redisDataBase@
+  task:
+    scheduling:
+      pool:
+        size: 10
