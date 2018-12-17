@@ -58,6 +58,11 @@ public class God {
         logger.info("定时器任务执行结束！！！！！！！");
     }
 
+
+
+
+
+
     @Scheduled(cron = "0 0 3 * * ? ")
     public synchronized void grabNewHouseInfo(){
         if(redisTemplate.hasKey("newHouseInfo")){

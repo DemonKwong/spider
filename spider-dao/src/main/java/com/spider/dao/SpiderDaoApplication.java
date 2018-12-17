@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import tk.mybatis.spring.annotation.MapperScan;
 
 import java.util.Date;
@@ -16,9 +17,10 @@ import java.util.Date;
  * @Title: SpiderDaoApplication
  * @ProjectName spider
  * @Description: TODO
- * @date 2018/11/2715:21
+ * @date 2018/11/27 15:21
  */
 @SpringBootApplication
+@EnableScheduling
 //@MapperScan(basePackages="com.spider.dao.mapper")
 public class SpiderDaoApplication implements CommandLineRunner {
     @Autowired
@@ -33,11 +35,6 @@ public class SpiderDaoApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        HouseContent houseContent = new HouseContent();
-        houseContent.setContent("asdasd");
-        houseContent.setCreateTime(new Date());
-        houseContent.setUrl("fuck");
-        houseContentHouseContentMapper.insert(houseContent);
         System.out.println("hello");
     }
 }

@@ -9,9 +9,9 @@ spring:
     host: @dataBaseHost@
     port: 6379
     password: kjw123456.
-    timeout: 500000
+    timeout: 5000
     database: @redisDataBase@
   task:
     scheduling:
       pool:
-        size: 10
+        size: 5
