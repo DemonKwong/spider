@@ -5,6 +5,7 @@ import com.spider.core.persist.DouBanPipeLine;
 import com.spider.core.processor.DouBanProcessor;
 import com.spider.core.processor.GitIpProxyProcessor;
 import com.spider.core.processor.NewHouseInfoProcessor;
+import org.apache.commons.collections.ListUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -16,6 +17,7 @@ import us.codecraft.webmagic.downloader.HttpClientDownloader;
 import us.codecraft.webmagic.proxy.Proxy;
 import us.codecraft.webmagic.proxy.SimpleProxyProvider;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -80,7 +82,11 @@ public class God {
                 logger.info("创建了一只爬虫。。。host："+object.getString("host")+"  port："+object.getInteger("port"));
             }
         }
-        List<String> detailUrlList = redisTemplate.opsForHash().values("newHouseInfo");
+        List<List<String>> allUrlList = redisTemplate.opsForHash().values("newHouseInfo");
+        List<String> detailUrlList = new ArrayList<>();
+        for(List<String> urlList : allUrlList){
+            detailUrlList = ListUtils.sum(detailUrlList,urlList);
+        }
         for(String url : detailUrlList){
             redisTemplate.opsForSet().add("pageDetailList",url);
             createIpProxySpiderAndRun();
