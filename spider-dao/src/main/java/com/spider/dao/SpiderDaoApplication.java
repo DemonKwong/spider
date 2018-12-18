@@ -3,6 +3,7 @@ package com.spider.dao;
 import com.spider.dao.mapper.BaseHouseInfoMapper;
 import com.spider.dao.mapper.HouseContentMapper;
 import com.spider.dao.model.HouseContent;
+import com.spider.dao.time.Time;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -29,6 +30,9 @@ public class SpiderDaoApplication implements CommandLineRunner {
     @Autowired
     private HouseContentMapper houseContentHouseContentMapper;
 
+    @Autowired
+    private Time time;
+
     public static void main(String[] args) {
         SpringApplication.run(SpiderDaoApplication.class, args);
     }
@@ -36,5 +40,6 @@ public class SpiderDaoApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         System.out.println("hello");
+        time.a2();
     }
 }
