@@ -52,6 +52,9 @@ public class NewHouseInfoProcessor implements PageProcessor {
                 Html html = page.getHtml();
                 List<String> houseInfoLinks = html.xpath("//*[@id=\"content\"]/div/div[1]/div[2]/table/tbody/tr/td[1]/a/@href").regex("^https://www.douban.com/group/topic/.*").all();
                 String pageNumber = html.xpath("//*[@id=\"content\"]/div/div[1]/div[3]/span[2]/text()").toString();
+                if(StringUtils.equals("...",pageNumber)){
+                    pageNumber = html.xpath("//*[@id=\"content\"]/div/div[1]/div[3]/span[3]/text()").toString();
+                }
                 redisTemplate.opsForHash().put("newHouseInfo",pageNumber,houseInfoLinks);
             }else if(Pattern.matches(pageDetailStr,page.getUrl().toString())){
                 Html html = page.getHtml();
