@@ -9,7 +9,7 @@ public class HouseInfo {
 
     private String title;
 
-    private Date publishtime;
+    private Date publishTime;
 
     private Date createTime;
 
@@ -39,12 +39,12 @@ public class HouseInfo {
         this.title = title == null ? null : title.trim();
     }
 
-    public Date getPublishtime() {
-        return publishtime;
+    public Date getpublishTime() {
+        return publishTime;
     }
 
-    public void setPublishtime(Date publishtime) {
-        this.publishtime = publishtime;
+    public void setpublishTime(Date publishTime) {
+        this.publishTime = publishTime;
     }
 
     public Date getCreateTime() {

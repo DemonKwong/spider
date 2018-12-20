@@ -42,11 +42,8 @@ public class God {
 
     @Scheduled(cron = "0 0 0/3 * * ? ")
     public void createDouBanSpiderAndRun(){
-        logger.info("定时器开始执行任务。。。。。。。");
-        logger.info("发现原来的爬虫已经阵亡，正在创建一只新的爬虫");
         createIpProxySpiderAndRun();
         while (gitIpProxyProcessor.getThread().isAlive()){
-            logger.info("爬取代理的爬虫还在运行。。。");
         }
         List<String> proxyList = gitIpProxyProcessor.getProxyList();
         for(String proxyStr : proxyList){
@@ -54,8 +51,6 @@ public class God {
             createDouBanSpider(object.getString("host"),object.getInteger("port"));
             logger.info("创建了一只爬虫。。。host："+object.getString("host")+"  port："+object.getInteger("port"));
         }
-        logger.info("创建爬虫完毕~");
-        logger.info("定时器任务执行结束！！！！！！！");
     }
 
 
@@ -75,7 +70,7 @@ public class God {
             createIpProxySpiderAndRun();
             String url = "https://www.douban.com/group/tianhezufang/discussion?start="+(i-1)*25;
             while (gitIpProxyProcessor.getThread().isAlive()){
-                logger.info("爬取代理的爬虫还在运行。。。");
+
             }
             List<String> proxyList = gitIpProxyProcessor.getProxyList();
             for(String proxyStr : proxyList){

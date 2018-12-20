@@ -49,7 +49,7 @@ public class DouBanPipeLine implements Pipeline {
             houseInfo.setContent(resultItems.get("content"));
             houseInfo.setCreateTime(new Date());
             try {
-                houseInfo.setPublishtime(DateUtils.parseDate(resultItems.get("publishTime"),"yyyy-MM-dd HH:mm:ss"));
+                houseInfo.setpublishTime(DateUtils.parseDate(resultItems.get("publishTime"),"yyyy-MM-dd HH:mm:ss"));
             } catch (ParseException e) {
                 e.printStackTrace();
             }

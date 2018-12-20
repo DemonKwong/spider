@@ -88,7 +88,11 @@ public class DouBanProcessor implements PageProcessor {
                         page.putField("title",html.xpath("//*[@id=\"content\"]/h1/text()").toString());
                         page.putField("price",priceList);
                         page.putField("url",page.getUrl().toString());
-                        page.putField("publishTime",html.xpath("//*[@id=\"content\"]/div/div[1]/div[1]/div[2]/h3/span[2]/text()").toString());
+                        String publishTime = html.xpath("//*[@id=\"content\"]/div/div[1]/div[1]/div[2]/h3/span[2]/text()").toString();
+                        if(StringUtils.isBlank(publishTime)){
+                              publishTime = html.xpath("//*[@id=\"content\"]/div/div[1]/div[2]/div[2]/h3/span[2]/text()").toString();
+                        }
+                        page.putField("publishTime",publishTime);
                         page.putField("content",content.toString());
                         page.putField("imgs",html.xpath("//*[@id=\"link-report\"]/div/div/div/div[@class='image-wrapper']/img/@src").all());
                   }
