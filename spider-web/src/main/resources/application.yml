@@ -1,0 +1,11 @@
+server:
+  port: 80
+  servlet:
+    context-path: /h
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    username: root
+    password: kjw123456.
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://148.70.61.185:3306/rental_information?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=UTF-8

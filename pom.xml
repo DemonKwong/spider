@@ -9,6 +9,7 @@
 	<modules>
 		<module>spider-core</module>
 		<module>spider-dao</module>
+		<module>spider-web</module>
 	</modules>
 	<packaging>pom</packaging>
 
@@ -84,6 +85,7 @@
 			<version>1.1.12</version>
 		</dependency>
 
+
 		<!-- https://mvnrepository.com/artifact/tk.mybatis/mapper-spring-boot-starter -->
 		<dependency>
 			<groupId>tk.mybatis</groupId>
@@ -96,7 +98,12 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-
+		<!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.8</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -115,35 +122,5 @@
 				<artifactId>maven-resources-plugin</artifactId>
 			</plugin>
 		</plugins>
-		<filters>
-			<filter>src\main\resources\application.yml</filter>
-		</filters>
-		<resources>
-			<resource>
-				<directory>src\main\resources</directory>
-				<filtering>true</filtering>
-			</resource>
-		</resources>
 	</build>
-	<profiles>
-		<profile>
-			<id>test</id>
-			<properties>
-				<mysqlDataBase>rental_information_test</mysqlDataBase>
-				<redisDataBase>0</redisDataBase>
-				<dataBaseHost>148.70.61.185</dataBaseHost>
-			</properties>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-		</profile>
-		<profile>
-			<id>release</id>
-			<properties>
-				<mysqlDataBase>rental_information</mysqlDataBase>
-				<redisDataBase>1</redisDataBase>
-				<dataBaseHost>127.0.0.1</dataBaseHost>
-			</properties>
-		</profile>
-	</profiles>
 </project>
