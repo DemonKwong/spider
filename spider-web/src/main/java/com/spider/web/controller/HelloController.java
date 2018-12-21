@@ -36,4 +36,11 @@ public class HelloController {
 		JSONObject jsonObject = (JSONObject) JSONObject.toJSON(map);
 		return jsonObject.getString("echostr");
 	}
+
+	@RequestMapping("get")
+	public String get(@RequestParam Map map){
+		JSONObject jsonObject = (JSONObject) JSONObject.toJSON(map);
+		logger.info(jsonObject.toJSONString());
+		return "hello";
+	}
 }
