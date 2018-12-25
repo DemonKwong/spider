@@ -1,7 +1,11 @@
 package com.spider.web.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import me.chanjar.weixin.mp.api.WxMpMessageRouter;
+import me.chanjar.weixin.mp.api.WxMpMessageRouterRule;
+import me.chanjar.weixin.mp.api.WxMpService;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -20,20 +24,17 @@ public class HelloController {
 
 	private Logger logger = Logger.getLogger(HelloController.class);
 
+	@Autowired
+	private WxMpService wxMpService;
 	@RequestMapping("hello")
-	public String hello(@RequestParam Map map,@RequestBody WeChatMsg msg){
-//		// 微信加密签名
-//		String signature = request.getParameter("signature");
-//		// 随机字符串
-//		String echostr = request.getParameter("echostr");
-//		// 时间戳
-//		String timestamp = request.getParameter("timestamp");
-//		// 随机数
-//		String nonce = request.getParameter("nonce");
+	public String hello(@RequestParam Map map,@RequestBody(required = false) WeChatMsg msg){
 		JSONObject jsonObject = (JSONObject) JSONObject.toJSON(map);
 		logger.info("jsonObject:"+jsonObject.toJSONString());
-		logger.info("msg:"+msg.toString());
-		return jsonObject.getString("echostr");
+		if(wxMpService.checkSignature(jsonObject.getString("timestamp"),jsonObject.getString("nonce"),jsonObject.getString("signature"))){
+			return jsonObject.getString("echostr");
+		}else{
+			return "";
+		}
 	}
 
 	@RequestMapping(value = "get",method = RequestMethod.POST)
