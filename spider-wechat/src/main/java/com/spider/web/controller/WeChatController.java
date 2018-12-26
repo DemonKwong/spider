@@ -15,7 +15,7 @@ import java.io.IOException;
 
 /**
  * @author kuangjiewen
- * @Title: HelloController
+ * @Title: WeChatController
  * @ProjectName spider
  * @Description: TODO
  * @date 2018/12/20 14:48
