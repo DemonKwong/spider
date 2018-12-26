@@ -1,5 +1,6 @@
 package com.spider.web;
 
+import com.alibaba.dubbo.spring.boot.annotation.EnableDubboConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
@@ -13,6 +14,7 @@ import org.springframework.cache.annotation.EnableCaching;
  */
 @SpringBootApplication
 @EnableCaching
+@EnableDubboConfiguration
 public class SpiderWeChatApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SpiderWeChatApplication.class,args);

@@ -1,5 +1,6 @@
 package com.spider.core.persist;
 
+import com.spider.core.mapper.BaseMapper;
 import com.spider.core.mapper.HouseInfoMapper;
 import com.spider.core.mapper.HousePictureMapper;
 import com.spider.core.mapper.HousePriceMapper;

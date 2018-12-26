@@ -10,6 +10,8 @@
 		<module>spider-core</module>
 		<module>spider-learn</module>
 		<module>spider-wechat</module>
+		<module>spider-dao-api</module>
+		<module>spider-dao-impl</module>
 	</modules>
 	<packaging>pom</packaging>
 
@@ -52,6 +54,7 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+
 
 		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
 		<dependency>

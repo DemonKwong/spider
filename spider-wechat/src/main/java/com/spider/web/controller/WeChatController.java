@@ -1,5 +1,8 @@
 package com.spider.web.controller;
 
+import com.alibaba.dubbo.config.annotation.Reference;
+import com.spider.dao.api.HouseInfoMapper;
+import com.spider.dao.dto.HouseInfo;
 import me.chanjar.weixin.mp.api.WxMpMessageRouter;
 import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlMessage;
@@ -25,6 +28,9 @@ public class WeChatController {
 
 	private Logger logger = Logger.getLogger(WeChatController.class);
 
+	@Reference
+	private HouseInfoMapper houseInfoMapper;
+
 	@Autowired
 	private WxMpService wxMpService;
 
@@ -33,6 +39,9 @@ public class WeChatController {
 
 	@RequestMapping("portal")
 	public String hello(String timestamp, String nonce, String signature, String echostr, HttpServletRequest request) throws IOException {
+		HouseInfo houseInfo = new HouseInfo();
+		houseInfo.setId(107615);
+		houseInfo = (HouseInfo) houseInfoMapper.selectOne(houseInfo);
 		if(!wxMpService.checkSignature(timestamp,nonce,signature)){
 			return "非法请求";
 		}
