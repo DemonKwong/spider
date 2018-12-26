@@ -30,6 +30,7 @@ public class WeChatController {
 
 	@Autowired
 	private WxMpMessageRouter wxMpMessageRouter;
+
 	@RequestMapping("portal")
 	public String hello(String timestamp, String nonce, String signature, String echostr, HttpServletRequest request) throws IOException {
 		if(!wxMpService.checkSignature(timestamp,nonce,signature)){
