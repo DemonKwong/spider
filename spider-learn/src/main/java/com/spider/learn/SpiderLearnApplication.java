@@ -1,17 +1,13 @@
-package com.spider.dao;
+package com.spider.learn;
 
-import com.spider.dao.mapper.BaseHouseInfoMapper;
-import com.spider.dao.mapper.HouseContentMapper;
-import com.spider.dao.model.HouseContent;
-import com.spider.dao.time.Time;
+import com.spider.learn.mapper.BaseHouseInfoMapper;
+import com.spider.learn.mapper.HouseContentMapper;
+import com.spider.learn.time.Time;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import tk.mybatis.spring.annotation.MapperScan;
-
-import java.util.Date;
 
 /**
  * @author kuangjiewen
@@ -22,8 +18,8 @@ import java.util.Date;
  */
 @SpringBootApplication
 @EnableScheduling
-//@MapperScan(basePackages="com.spider.dao.mapper")
-public class SpiderDaoApplication implements CommandLineRunner {
+//@MapperScan(basePackages="com.spider.learn.mapper")
+public class SpiderLearnApplication implements CommandLineRunner {
     @Autowired
     private BaseHouseInfoMapper baseHouseInfoMapper;
 
@@ -34,7 +30,7 @@ public class SpiderDaoApplication implements CommandLineRunner {
     private Time time;
 
     public static void main(String[] args) {
-        SpringApplication.run(SpiderDaoApplication.class, args);
+        SpringApplication.run(SpiderLearnApplication.class, args);
     }
 
     @Override

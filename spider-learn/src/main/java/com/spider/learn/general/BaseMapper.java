@@ -1,4 +1,4 @@
-package com.spider.dao.general;
+package com.spider.learn.general;
 
 import tk.mybatis.mapper.common.Mapper;
 import tk.mybatis.mapper.common.MySqlMapper;
