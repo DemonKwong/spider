@@ -9,3 +9,10 @@ spring:
     password: kjw123456.
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://148.70.61.185:3306/rental_information?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=UTF-8
+
+#########################配置类读取的字段#######################
+wechat:
+  app-id: wxc4976d0c8d729b76
+  secret: 2805540e9cb6c7ad5b9fca76889e8891
+  aes-key: d5zJf4dXd1sus6Vx6pVUfRDx4O3G3TWQwc9sebvvvZK
+  token: hello2018

@@ -8,6 +8,7 @@ import me.chanjar.weixin.mp.api.WxMpInMemoryConfigStorage;
 import me.chanjar.weixin.mp.api.WxMpMessageRouter;
 import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.api.impl.WxMpServiceImpl;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -21,13 +22,25 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class WeChatConfiguration {
 
+	@Value("${wechat.app-id}")
+	private String appId;
+
+	@Value("${wechat.secret}")
+	private String secret;
+
+	@Value("${wechat.aes-key}")
+	private String aesKey;
+
+	@Value("${wechat.token}")
+	private String token;
+
 	@Bean
 	public WxMpConfigStorage initWxMpInMemoryConfigStorage(){
 		WxMpInMemoryConfigStorage wxMpInMemoryConfigStorage = new WxMpInMemoryConfigStorage();
-		wxMpInMemoryConfigStorage.setAppId("wxc4976d0c8d729b76");
-		wxMpInMemoryConfigStorage.setSecret("2805540e9cb6c7ad5b9fca76889e8891");
-		wxMpInMemoryConfigStorage.setAesKey("d5zJf4dXd1sus6Vx6pVUfRDx4O3G3TWQwc9sebvvvZK");
-		wxMpInMemoryConfigStorage.setToken("hello2018");
+		wxMpInMemoryConfigStorage.setAppId(appId);
+		wxMpInMemoryConfigStorage.setSecret(secret);
+		wxMpInMemoryConfigStorage.setAesKey(aesKey);
+		wxMpInMemoryConfigStorage.setToken(token);
 		return wxMpInMemoryConfigStorage;
 	}
 
