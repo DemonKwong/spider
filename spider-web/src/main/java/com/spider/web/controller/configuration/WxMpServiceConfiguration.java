@@ -42,7 +42,8 @@ public class WxMpServiceConfiguration {
 	@Bean
 	public WxMpMessageRouter initWxMpMessageRouter(WxMpService wxMpService, TextMessageHandler textMessageHandler, SubscribeMessgeHandler subscribeMessgeHandler){
 		WxMpMessageRouter wxMpMessageRouter = new WxMpMessageRouter(wxMpService);
-		wxMpMessageRouter.rule().async(false).msgType(WxConsts.XmlMsgType.TEXT).handler(textMessageHandler).end().rule().async(false).msgType("event").event("subscribe").handler(subscribeMessgeHandler).end();
+		wxMpMessageRouter.rule().async(false).msgType(WxConsts.XmlMsgType.TEXT).handler(textMessageHandler).end();
+		wxMpMessageRouter.rule().async(false).msgType(WxConsts.XmlMsgType.EVENT).event(WxConsts.EventType.SUBSCRIBE).handler(subscribeMessgeHandler).end();
 		return wxMpMessageRouter;
 	}
 
