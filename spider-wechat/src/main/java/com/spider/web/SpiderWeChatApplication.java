@@ -8,7 +8,7 @@ import org.springframework.cache.annotation.EnableCaching;
  * @author kuangjiewen
  * @Title: SpiderWebApplication
  * @ProjectName spider
- * @Description: 爬虫web入口
+ * @Description: 微信项目启动入口
  * @date 2018/12/20 14:46
  */
 @SpringBootApplication

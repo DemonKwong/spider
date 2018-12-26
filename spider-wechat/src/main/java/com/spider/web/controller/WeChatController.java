@@ -17,7 +17,7 @@ import java.io.IOException;
  * @author kuangjiewen
  * @Title: WeChatController
  * @ProjectName spider
- * @Description: TODO
+ * @Description: 接收微信发过来的请求入口
  * @date 2018/12/20 14:48
  */
 @Controller

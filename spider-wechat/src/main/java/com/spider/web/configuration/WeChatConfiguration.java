@@ -19,7 +19,7 @@ import org.springframework.context.annotation.Configuration;
  * @date 2018/12/24 18:18
  */
 @Configuration
-public class WxMpServiceConfiguration {
+public class WeChatConfiguration {
 
 	@Bean
 	public WxMpConfigStorage initWxMpInMemoryConfigStorage(){
