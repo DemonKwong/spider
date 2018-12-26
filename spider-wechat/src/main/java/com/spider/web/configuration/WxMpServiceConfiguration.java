@@ -1,7 +1,7 @@
-package com.spider.web.controller.configuration;
+package com.spider.web.configuration;
 
-import com.spider.web.controller.handler.SubscribeMessgeHandler;
-import com.spider.web.controller.handler.TextMessageHandler;
+import com.spider.web.handler.SubscribeMessgeHandler;
+import com.spider.web.handler.TextMessageHandler;
 import me.chanjar.weixin.common.api.WxConsts;
 import me.chanjar.weixin.mp.api.WxMpConfigStorage;
 import me.chanjar.weixin.mp.api.WxMpInMemoryConfigStorage;

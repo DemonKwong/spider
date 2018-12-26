@@ -9,7 +9,7 @@
 	<modules>
 		<module>spider-core</module>
 		<module>spider-dao</module>
-		<module>spider-web</module>
+		<module>spider-wechat</module>
 	</modules>
 	<packaging>pom</packaging>
 

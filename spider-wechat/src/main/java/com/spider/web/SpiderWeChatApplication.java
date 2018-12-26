@@ -13,8 +13,8 @@ import org.springframework.cache.annotation.EnableCaching;
  */
 @SpringBootApplication
 @EnableCaching
-public class SpiderWebApplication {
+public class SpiderWeChatApplication {
 	public static void main(String[] args) {
-		SpringApplication.run(SpiderWebApplication.class,args);
+		SpringApplication.run(SpiderWeChatApplication.class,args);
 	}
 }

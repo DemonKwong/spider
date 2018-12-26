@@ -1,4 +1,4 @@
-package com.spider.web.controller.handler;
+package com.spider.web.handler;
 
 import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.common.session.WxSessionManager;
