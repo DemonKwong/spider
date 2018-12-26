@@ -8,7 +8,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<modules>
 		<module>spider-core</module>
-		<module>spider-dao</module>
+		<module>spider-learn</module>
 		<module>spider-wechat</module>
 	</modules>
 	<packaging>pom</packaging>
