@@ -1,9 +1,10 @@
 package com.spider.dao.dto;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class HousePrice extends BaseDTO {
+public class HousePrice implements Serializable {
     private Integer id;
 
     private String url;

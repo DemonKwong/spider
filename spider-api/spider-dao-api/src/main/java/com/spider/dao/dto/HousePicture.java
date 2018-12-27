@@ -1,8 +1,9 @@
 package com.spider.dao.dto;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class HousePicture extends BaseDTO {
+public class HousePicture implements Serializable {
     private Integer id;
 
     private String url;
