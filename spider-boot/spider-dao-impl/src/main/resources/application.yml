@@ -4,10 +4,10 @@ spring:
     username: root
     password: kjw123456.
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://148.70.61.185:3306/rental_information?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://@dataBaseHost@:3306/@mysqlDataBase@?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=UTF-8
   dubbo:
     appname: dao
-    registry: zookeeper://127.0.0.1:2181
+    registry: @dubboRegistry@
     protocol: dubbo
-    port: 20880
+    port: @daoDubboPort@
     server: true

@@ -4,13 +4,23 @@ server:
     context-path: /weixin
 spring:
   dubbo:
-    port: 20881
+    port: @wechatDubboPort@
     protocol: dubbo
     appname: wechat
-    registry: zookeeper://127.0.0.1:2181
+    registry: @dubboRegistry@
+  redis:
+    host: @dataBaseHost@
+    port: 6379
+    password: kjw123456.
+    timeout: 5000
+    database: @redisDataBase@
+  task:
+    scheduling:
+      pool:
+        size: 5
 #########################配置类读取的字段#######################
 wechat:
-  app-id: wxc4976d0c8d729b76
-  secret: 2805540e9cb6c7ad5b9fca76889e8891
-  aes-key: d5zJf4dXd1sus6Vx6pVUfRDx4O3G3TWQwc9sebvvvZK
-  token: hello2018
+  app-id: @wechatAppId@
+  secret: @wechatSecret@
+  aes-key: @wechatAesKey@
+  token: @wechatToken@

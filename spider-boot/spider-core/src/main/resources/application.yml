@@ -9,3 +9,8 @@ spring:
     scheduling:
       pool:
         size: 5
+  dubbo:
+    port: @coreDubboPort@
+    protocol: dubbo
+    appname: core
+    registry: @dubboRegistry@

@@ -12,29 +12,9 @@
     <artifactId>spider-boot</artifactId>
     <modules>
         <module>spider-core</module>
-        <module>spider-learn</module>
         <module>spider-wechat</module>
         <module>spider-dao-impl</module>
     </modules>
-
-    <dependencyManagement>
-        <dependencies>
-            <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-dependencies -->
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>2.1.0.RELEASE</version>
-                <type>pom</type>
-                <scope>import</scope>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.springframework.boot</groupId>
-                        <artifactId>spring-boot-starter-logging</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -87,6 +67,11 @@
             <artifactId>zkclient</artifactId>
             <version>0.11</version>
         </dependency>
+        <dependency>
+            <groupId>com.spider</groupId>
+            <artifactId>spider-dao-api</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -94,6 +79,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.1.0.RELEASE</version>
             </plugin>
             <plugin>
                 <groupId>org.mybatis.generator</groupId>
@@ -103,9 +89,57 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
+                <version>3.1.0</version>
             </plugin>
         </plugins>
+        <filters>
+            <filter>src\main\resources\application.yml</filter>
+        </filters>
+        <resources>
+            <resource>
+                <directory>src\main\resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
     </build>
+
+    <profiles>
+        <profile>
+            <id>test</id>
+            <properties>
+                <mysqlDataBase>rental_information_test</mysqlDataBase>
+                <redisDataBase>0</redisDataBase>
+                <dataBaseHost>148.70.61.185</dataBaseHost>
+                <wechatAppId>wxc4976d0c8d729b76</wechatAppId>
+                <wechatSecret>2805540e9cb6c7ad5b9fca76889e8891</wechatSecret>
+                <wechatAesKey>d5zJf4dXd1sus6Vx6pVUfRDx4O3G3TWQwc9sebvvvZK</wechatAesKey>
+                <wechatToken>hello2018</wechatToken>
+                <dubboRegistry>zookeeper://148.70.61.185:2181</dubboRegistry>
+                <daoDubboPort>20880</daoDubboPort>
+                <wechatDubboPort>20881</wechatDubboPort>
+                <coreDubboPort>20882</coreDubboPort>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <id>release</id>
+            <properties>
+                <mysqlDataBase>rental_information</mysqlDataBase>
+                <redisDataBase>1</redisDataBase>
+                <dataBaseHost>127.0.0.1</dataBaseHost>
+                <wechatAppId>wxc4976d0c8d729b76</wechatAppId>
+                <wechatSecret>2805540e9cb6c7ad5b9fca76889e8891</wechatSecret>
+                <wechatAesKey>d5zJf4dXd1sus6Vx6pVUfRDx4O3G3TWQwc9sebvvvZK</wechatAesKey>
+                <wechatToken>hello2018</wechatToken>
+                <dubboRegistry>zookeeper://127.0.0.1:2181</dubboRegistry>
+                <daoDubboPort>20880</daoDubboPort>
+                <wechatDubboPort>20881</wechatDubboPort>
+                <coreDubboPort>20882</coreDubboPort>
+            </properties>
+        </profile>
+    </profiles>
 
 
 </project>

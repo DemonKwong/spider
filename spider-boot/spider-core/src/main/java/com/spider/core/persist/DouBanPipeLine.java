@@ -1,15 +1,14 @@
 package com.spider.core.persist;
 
-import com.spider.core.mapper.BaseMapper;
-import com.spider.core.mapper.HouseInfoMapper;
-import com.spider.core.mapper.HousePictureMapper;
-import com.spider.core.mapper.HousePriceMapper;
-import com.spider.core.model.HouseInfo;
-import com.spider.core.model.HousePicture;
-import com.spider.core.model.HousePrice;
+import com.alibaba.dubbo.config.annotation.Reference;
+import com.spider.dao.api.HouseInfoMapper;
+import com.spider.dao.api.HousePictureMapper;
+import com.spider.dao.api.HousePriceMapper;
+import com.spider.dao.dto.HouseInfo;
+import com.spider.dao.dto.HousePicture;
+import com.spider.dao.dto.HousePrice;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.time.DateUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import us.codecraft.webmagic.ResultItems;
@@ -19,19 +18,18 @@ import us.codecraft.webmagic.pipeline.Pipeline;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 @Component
 public class DouBanPipeLine implements Pipeline {
-    @Autowired
+    @Reference
     private HouseInfoMapper houseInfoMapper;
 
-    @Autowired
+    @Reference
     private HousePictureMapper housePictureMapper;
 
-    @Autowired
+    @Reference
     private HousePriceMapper housePriceMapper;
 
     @Override
@@ -40,7 +38,7 @@ public class DouBanPipeLine implements Pipeline {
         synchronized (this) {
             HouseInfo queryParam = new HouseInfo();
             queryParam.setUrl(resultItems.get("url"));
-            HouseInfo existHouse = houseInfoMapper.selectOne(queryParam);
+            HouseInfo existHouse = (HouseInfo) houseInfoMapper.selectOne(queryParam);
             if(existHouse != null){
                 return ;
             }
