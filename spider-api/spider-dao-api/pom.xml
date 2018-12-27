@@ -10,6 +10,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>spider-dao-api</artifactId>
-
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/tk.mybatis/mapper-base -->
+        <dependency>
+            <groupId>tk.mybatis</groupId>
+            <artifactId>mapper-base</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+    </dependencies>
 
 </project>
