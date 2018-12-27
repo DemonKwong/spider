@@ -3,19 +3,11 @@ server:
   servlet:
     context-path: /weixin
 spring:
-  datasource:
-    type: com.alibaba.druid.pool.DruidDataSource
-    username: root
-    password: kjw123456.
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://148.70.61.185:3306/rental_information?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=UTF-8u
   dubbo:
     port: 20881
     protocol: dubbo
     appname: wechat
     registry: zookeeper://127.0.0.1:2181
-
-
 #########################配置类读取的字段#######################
 wechat:
   app-id: wxc4976d0c8d729b76

@@ -1,0 +1,11 @@
+spring:
+  redis:
+    host: @dataBaseHost@
+    port: 6379
+    password: kjw123456.
+    timeout: 5000
+    database: @redisDataBase@
+  task:
+    scheduling:
+      pool:
+        size: 5
