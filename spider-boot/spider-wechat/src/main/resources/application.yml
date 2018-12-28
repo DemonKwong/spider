@@ -1,5 +1,5 @@
 server:
-  port: 20999
+  port: 80
   servlet:
     context-path: /weixin
 spring:
@@ -14,10 +14,6 @@ spring:
     password: kjw123456.
     timeout: 5000
     database: @redisDataBase@
-  task:
-    scheduling:
-      pool:
-        size: 5
 #########################配置类读取的字段#######################
 wechat:
   app-id: @wechatAppId@
