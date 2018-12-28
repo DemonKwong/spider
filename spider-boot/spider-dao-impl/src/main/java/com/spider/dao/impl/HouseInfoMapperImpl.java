@@ -10,4 +10,8 @@ import org.springframework.stereotype.Component;
 @Service(interfaceClass = HouseInfoMapper.class,timeout = 600000)
 @Component("houseInfoMapper")
 public interface HouseInfoMapperImpl extends HouseInfoMapper<HouseInfo> {
+	@Override
+	Integer countNewInfoInYesterday();
+
+
 }

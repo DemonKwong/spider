@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.spider.dao.impl.HouseInfoMapperImpl">
+    <!--auto generated Code-->
+    <resultMap id="AllColumnMap" type="com.spider.dao.dto.HouseInfo">
+        <result column="id" property="id"/>
+        <result column="url" property="url"/>
+        <result column="title" property="title"/>
+        <result column="publish_time" property="publishTime"/>
+        <result column="create_time" property="createTime"/>
+        <result column="content" property="content"/>
+    </resultMap>
+
+    <!--auto generated Code-->
+    <sql id="all_column">
+        `id`,
+        `url`,
+        `title`,
+        `publish_time`,
+        `create_time`,
+        `content`
+    </sql>
+
+    <select id="countNewInfoInYesterday" resultType="java.lang.Integer">
+        SELECT
+          count(*)
+        FROM
+          house_info
+        WHERE
+          publish_time <![CDATA[ < ]]> DATE_FORMAT(NOW(), '%Y-%m-%d')
+        AND publish_time <![CDATA[ > ]]> DATE_ADD(
+          DATE_FORMAT(NOW(), '%Y-%m-%d'),
+        INTERVAL - 1 DAY
+        )
+        ORDER BY
+        publish_time DESC
+    </select>
+</mapper>
+

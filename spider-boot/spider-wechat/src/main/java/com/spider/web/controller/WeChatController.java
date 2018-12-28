@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -23,13 +24,10 @@ import java.io.IOException;
  * @Description: 接收微信发过来的请求入口
  * @date 2018/12/20 14:48
  */
-@Controller
+@RestController
 public class WeChatController {
 
 	private Logger logger = Logger.getLogger(WeChatController.class);
-
-	@Reference
-	private HouseInfoMapper houseInfoMapper;
 
 	@Autowired
 	private WxMpService wxMpService;
@@ -39,9 +37,7 @@ public class WeChatController {
 
 	@RequestMapping("portal")
 	public String hello(String timestamp, String nonce, String signature, String echostr, HttpServletRequest request) throws IOException {
-		HouseInfo houseInfo = new HouseInfo();
-		houseInfo.setId(107615);
-		houseInfo = (HouseInfo) houseInfoMapper.selectOne(houseInfo);
+
 		if(!wxMpService.checkSignature(timestamp,nonce,signature)){
 			return "非法请求";
 		}
@@ -49,6 +45,7 @@ public class WeChatController {
 			return echostr;
 		}
 		WxMpXmlMessage wxMpXmlMessage = WxMpXmlMessage.fromXml(request.getInputStream());
+		logger.info("收到了一条消息，发送者："+wxMpXmlMessage.getFromUser()+"消息类型："+wxMpXmlMessage.getMsgType());
 		WxMpXmlOutMessage wxMpXmlOutMessage = wxMpMessageRouter.route(wxMpXmlMessage);
 		if(wxMpXmlOutMessage != null){
 			return wxMpXmlOutMessage.toXml();

@@ -134,9 +134,9 @@
                 <wechatAesKey>d5zJf4dXd1sus6Vx6pVUfRDx4O3G3TWQwc9sebvvvZK</wechatAesKey>
                 <wechatToken>hello2018</wechatToken>
                 <dubboRegistry>zookeeper://127.0.0.1:2181</dubboRegistry>
-                <daoDubboPort>20880</daoDubboPort>
-                <wechatDubboPort>20881</wechatDubboPort>
-                <coreDubboPort>20882</coreDubboPort>
+                <daoDubboPort>30880</daoDubboPort>
+                <wechatDubboPort>30881</wechatDubboPort>
+                <coreDubboPort>30882</coreDubboPort>
             </properties>
         </profile>
     </profiles>
