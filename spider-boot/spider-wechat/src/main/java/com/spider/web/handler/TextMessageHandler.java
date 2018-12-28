@@ -2,6 +2,7 @@ package com.spider.web.handler;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.spider.dao.api.HouseInfoMapper;
+import com.spider.dao.dto.HouseInfo;
 import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.common.session.WxSessionManager;
 import me.chanjar.weixin.mp.api.WxMpMessageHandler;
@@ -10,6 +11,7 @@ import me.chanjar.weixin.mp.bean.message.WxMpXmlMessage;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlOutMessage;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.Map;
 
