@@ -1,5 +1,6 @@
 package com.spider.core;
 
+import com.alibaba.dubbo.spring.boot.annotation.EnableDubboConfiguration;
 import com.spider.core.processor.GitIpProxyProcessor;
 import com.spider.core.scheduled.God;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import us.codecraft.webmagic.Spider;
  */
 @SpringBootApplication
 @EnableScheduling
+@EnableDubboConfiguration
 public class SpiderCoreApplication implements CommandLineRunner {
 
     @Autowired
@@ -29,6 +31,7 @@ public class SpiderCoreApplication implements CommandLineRunner {
     public static Spider douBanSpider;
 
     public static void main(String[] args) {
+        System.setProperty("dubbo.qos.port","22224");
         SpringApplication.run(SpiderCoreApplication.class, args);
 //        Logger logger = Logger.getLogger(SpiderCoreApplication.class);
 //        logger.info("hahha");

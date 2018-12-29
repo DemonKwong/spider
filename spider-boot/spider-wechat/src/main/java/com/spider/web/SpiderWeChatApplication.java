@@ -18,6 +18,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableDubboConfiguration
 public class SpiderWeChatApplication {
 	public static void main(String[] args) {
+		System.setProperty("dubbo.qos.port","22222");
 		SpringApplication.run(SpiderWeChatApplication.class,args);
 	}
 }
