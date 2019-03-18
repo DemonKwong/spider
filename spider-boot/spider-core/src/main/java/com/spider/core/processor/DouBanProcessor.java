@@ -52,7 +52,7 @@ public class DouBanProcessor implements PageProcessor {
                         page.setSkip(true);
                         Html html = page.getHtml();
                         String pageNumber = html.xpath("//*[@id=\"content\"]/div/div[1]/div[3]/span[2]/text()").toString();
-                        if(StringUtils.equals("...",pageNumber)){
+                        if(StringUtils.equals("...",pageNumber)){.0.0
                               pageNumber = html.xpath("//*[@id=\"content\"]/div/div[1]/div[3]/span[3]/text()").toString();
                         }
                         Integer preNumber = (Integer) redisTemplate.opsForValue().get("page");

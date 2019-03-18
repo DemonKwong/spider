@@ -1,0 +1,15 @@
+server:
+  port: 8888
+  servlet:
+    context-path: /web
+spring:
+  datasource:
+    url: jdbc:mysql://148.70.61.185:3306/rental_information
+    type: com.alibaba.druid.pool.DruidDataSource
+    username: root
+    password: kjw123456.
+    driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
