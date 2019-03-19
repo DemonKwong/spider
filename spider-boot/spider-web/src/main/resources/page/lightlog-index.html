@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>广州租房信息</title>
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/ll-css.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="highlight/styles/railscasts.css">
+</head>
+<body>
+<div class="ll-header container-fluid">
+    <div class="ll-logo">
+        <a href="lightlog-index.html">
+            <h1>YourHouse</h1>
+            <p>租的是房子，住的是生活</p>
+        </a>
+    </div>
+</div>
+<div class="ll-cantainer container">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                </a>
+            </li>
+            <li class="page-item" style="margin-left: 2px;">
+                <div style="width: 100px;height: 100%;">
+                    <input id="pageNum" value="1" type="text" style="width: 50px;float: left;" class="form-control">
+                    <span style="display: inline-block;margin: 5px 4px;">/50页</span>
+                </div>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+<div class="container-fluid ll-footer">
+    <div class="container">
+        <p class="ll-footer-link"><a href="#">温馨提示</a></p>
+        <p class="ll-copyright">本站数据来自网络，请勿用于商业用途</p>
+    </div>
+</div>
+<script src="jquery/jquery.min.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="highlight/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script type="text/javascript">
+    $(function () {
+        var page = $("#pageNum").val();
+
+        $.ajax({
+            type:"post",
+            url:"http://127.0.0.1:8888/web/getList",
+            data:{
+                page:page
+            },
+            crossDomain:true,
+            success:function (data) {
+                var htmlStr = "";
+                for(var index in data.content){
+                    var info = data.content[index];
+                    var infoStr = "    <div class=\"ll-card\">\n" +
+                        "        <div class=\"row\">\n" +
+                        "            <div class=\"col-lg-2 col-md-3 col-sm-12 ll-card-image\"><a href=\"#\"><img src=\"img/list-image.jpg\" class=\"img-fluid\" alt=\"Responsive image\"></a></div>\n" +
+                        "            <div class=\"col-lg-10 col-md-9 col-sm-12 ll-card-main\">\n" +
+                        "                <h3 class=\"ll-card-main-title\"><a href=\"lightlog-detail.html\">"+info.title+"</a></h3>\n" +
+                        "                <div class=\"ll-card-tag\">\n" +
+                        "                    <div><i class=\"fa fa-clock-o\"></i>"+info.createTime+"</div>\n" +
+                        "                    <div><i class=\"fa fa-eye\"></i> "+info.hits+"</div>\n" +
+                        "                </div>\n" +
+                        "                <p class=\"ll-card-main-info\">"+info.content+"</p>\n" +
+                        "                <p class=\"ll-card-more\"><a href=\"lightlog-detail.html\">阅读更多...</a></p>\n" +
+                        "            </div>\n" +
+                        "        </div>\n" +
+                        "    </div>";
+
+                    htmlStr += infoStr;
+                }
+                $(".container").prepend(htmlStr);
+
+
+                console.log(data);
+            }
+        })
+    })
+</script>
+</body>
+</html>
