@@ -14,5 +14,6 @@ spring:
       ddl-auto: update
     show-sql: true
   thymeleaf:
-    prefix: classpath:/page/
+    prefix: classpath:/templates/
     suffix: .html
+    mode: html5
