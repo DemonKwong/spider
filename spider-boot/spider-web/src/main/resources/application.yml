@@ -15,3 +15,4 @@ spring:
     show-sql: true
   thymeleaf:
     prefix: classpath:/page/
+    suffix: .html
