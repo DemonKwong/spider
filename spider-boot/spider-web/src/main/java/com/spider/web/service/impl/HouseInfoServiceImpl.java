@@ -9,6 +9,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 
 
 @Service("houseInfoService")
@@ -21,6 +26,19 @@ public class HouseInfoServiceImpl implements HouseInfoService {
     public Page<HouseInfo> getList(int page,int size) {
         Pageable pageable = PageRequest.of(page-1,size, Sort.Direction.DESC,"id");
         Page<HouseInfo> pageInfo = houseInfoDao.findAll(pageable);
+        Iterator<HouseInfo> infoIterator = pageInfo.iterator();
+        while(infoIterator.hasNext()){
+            HouseInfo houseInfo = infoIterator.next();
+            String content = houseInfo.getContent();
+            content = content.substring(1,content.length()-1);
+            List<String> list =Arrays.asList(content.split(","));
+            if(!CollectionUtils.isEmpty(list)){
+                content = list.get(0);
+            }else{
+                content = "";
+            }
+            houseInfo.setContent(content);
+        }
         return pageInfo;
     }
 }

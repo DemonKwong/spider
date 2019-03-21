@@ -20,6 +20,9 @@
     </div>
 </div>
 <div class="ll-cantainer container">
+    <div id="content">
+
+    </div>
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
             <li class="page-item">
@@ -86,9 +89,8 @@
 
                     htmlStr += infoStr;
                 }
-                $(".container").prepend(htmlStr);
-
-
+                $("#content").empty();
+                $("#content").prepend(htmlStr);
                 console.log(data);
             }
         })
