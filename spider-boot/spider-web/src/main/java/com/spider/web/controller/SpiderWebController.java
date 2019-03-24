@@ -19,7 +19,7 @@ public class SpiderWebController {
 
     @RequestMapping("/getList")
     @ResponseBody
-    public Page getList(@RequestParam int page, HttpServletResponse httpServletResponse){
+    public Page getList(@RequestParam int page){
         return houseInfoService.getList(page,7);
     }
 
