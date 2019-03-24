@@ -26,19 +26,19 @@
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
             <li class="page-item">
-                <a class="page-link" href="#" aria-label="Previous">
+                <a class="page-link" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                     <span class="sr-only">Previous</span>
                 </a>
             </li>
             <li class="page-item" style="margin-left: 2px;">
-                <div style="width: 100px;height: 100%;">
+                <div style="width: 150px;height: 100%;">
                     <input id="pageNum" value="1" type="text" style="width: 50px;float: left;" class="form-control">
                     <span style="display: inline-block;margin: 5px 4px;">/50页</span>
                 </div>
             </li>
             <li class="page-item">
-                <a class="page-link" href="#" aria-label="Next">
+                <a class="page-link" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                     <span class="sr-only">Next</span>
                 </a>
@@ -58,9 +58,40 @@
 <script>hljs.initHighlightingOnLoad();</script>
 
 <script type="text/javascript">
+    var totalPage = 0;
     $(function () {
-        var page = $("#pageNum").val();
 
+        $("a[aria-label='Previous']").click(function () {
+            var pageNum = parseInt($("#pageNum").val());
+            if(pageNum > 1){
+                pageNum -=1;
+                $("#pageNum").val(pageNum);
+                getList();
+            }
+        });
+        $("a[aria-label='Next']").click(function () {
+            var pageNum = parseInt($("#pageNum").val());
+            if(pageNum < totalPage){
+                pageNum +=1;
+                $("#pageNum").val(pageNum);
+                getList();
+            }
+        });
+
+        $('#pageNum').bind('keypress',function(event){
+            if(event.keyCode == "13"){
+                var pageNum = parseInt($("#pageNum").val());
+                if(0 < pageNum && pageNum <= totalPage){
+                    getList();
+                }
+            }
+        });
+
+        getList();
+    })
+
+    function getList(){
+        var page = $("#pageNum").val();
         $.ajax({
             type:"post",
             url:"getList",
@@ -68,33 +99,35 @@
                 page:page
             },
             success:function (data) {
-                console.log(data);
+                $('#pageNum').next().text("/"+data.totalPages+"页");
+                console.log(data.totalPages);
+                totalPage = data.totalPages;
                 var htmlStr = "";
                 for(var index in data.content){
                     var info = data.content[index];
-                    var infoStr = "    <div class=\"ll-card\">\n" +
-                        "        <div class=\"row\">\n" +
-                        "            <div class=\"col-lg-2 col-md-3 col-sm-12 ll-card-image\"><a href=\"#\"><img src=\"img/list-image.jpg\" class=\"img-fluid\" alt=\"Responsive image\"></a></div>\n" +
-                        "            <div class=\"col-lg-10 col-md-9 col-sm-12 ll-card-main\">\n" +
-                        "                <h3 class=\"ll-card-main-title\"><a href=\"lightlog-detail.html\">"+info.title+"</a></h3>\n" +
-                        "                <div class=\"ll-card-tag\">\n" +
-                        "                    <div><i class=\"fa fa-clock-o\"></i>"+info.createTime+"</div>\n" +
-                        "                    <div><i class=\"fa fa-eye\"></i> "+info.hits+"</div>\n" +
-                        "                </div>\n" +
-                        "                <p class=\"ll-card-main-info\">"+info.content+"</p>\n" +
-                        "                <p class=\"ll-card-more\"><a href=\"lightlog-detail.html\">阅读更多...</a></p>\n" +
-                        "            </div>\n" +
-                        "        </div>\n" +
+                    var publishTime = new Date(info.publishTime);
+                    var infoStr = "    <div class=\"ll-card\">" +
+                        "        <div class=\"row\">" +
+                        "            <div class=\"col-lg-2 col-md-3 col-sm-12 ll-card-image\"><a href=\"#\"><img src=\"img/list-image.jpg\" class=\"img-fluid\" alt=\"Responsive image\"></a></div>" +
+                        "            <div class=\"col-lg-10 col-md-9 col-sm-12 ll-card-main\">" +
+                        "                <h3 class=\"ll-card-main-title\"><a href=\"lightlog-detail.html\">"+info.title+"</a></h3>" +
+                        "                <div class=\"ll-card-tag\">" +
+                        "                    <div><i class=\"fa fa-clock-o\"></i>"+publishTime.getFullYear()+"年"+publishTime.getUTCMonth()+1+"月"+publishTime.getDate()+"日"+publishTime.getHours()+"时"+publishTime.getMinutes()+"分"+"</div>" +
+                        "                    <div><i class=\"fa fa-eye\"></i> "+info.hits+"</div>" +
+                        "                </div>" +
+                        "                <p class=\"ll-card-main-info\">"+info.content+"</p>" +
+                        "                <p class=\"ll-card-more\"><a href=\"lightlog-detail.html\">阅读更多...</a></p>" +
+                        "            </div>" +
+                        "        </div>" +
                         "    </div>";
 
                     htmlStr += infoStr;
                 }
                 $("#content").empty();
                 $("#content").prepend(htmlStr);
-                console.log(data);
             }
         })
-    })
+    }
 </script>
 </body>
 </html>
